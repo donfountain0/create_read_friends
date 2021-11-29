@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+        <!-- linking a javascript file -->
+        <script type="text/javascript" src="{{ url_for('static', filename='js/my_script.js') }}"></script>
+        <title>Document</title>
+    </head>
+    <body>
+        <div class ="container">
+            <h1>Create Friends</h1>
+                
+                <table>
+
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Occupation</th>
+                    </tr>
+
+                    {% for friend in friends%}
+                    <tr>
+                        <td>{{friend['first_name']}}</td>
+                        <td>{{friend['last_name']}}</td>
+                        <td>{{friend['occupation']}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            
+            <h3>Add a Friend</h3>
+
+            <form action='/users' method='post'>
+                First Name: <input type='text' name='first_name'><br>
+                Last Name: <input type='text' name='last_name'><br>
+                Occupation: <input type='text' name='occupation'><br>
+                <input type='submit' value='create friend'>
+            </form>
+        </div>
+    </body>
+</html>
