@@ -35,5 +35,5 @@ function Friends(){
     );
     // };
 };
-export default Friend
+export default Friends
 
