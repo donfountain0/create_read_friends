@@ -10,7 +10,6 @@ function App() {
         <h1> Friends App</h1>
       </header>
       <Form />
-
       <Friends/>
       
     </div>
