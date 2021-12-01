@@ -6,7 +6,7 @@ mysql = connectToMySQL('c_r_friends')
 
 # print("all the users", mysql.query_db("SELECT * FROM users;"))
 
-@app.route("/members", methods="GET")
+@app.route("/members")
 def index():
     mysql = connectToMySQL("c_r_friends")
     all_friends = mysql.query_db("SELECT * FROM friends")
