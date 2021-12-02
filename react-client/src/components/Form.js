@@ -15,11 +15,12 @@ export default class Form extends React.Component {
 
     handleChange = event => {
         this.setState({
-            first_name: event.target.value,
-            last_name: event.target.value,
-            occupation: event.target.value
+            [event.target.name]: event.target.value,
+            [event.target.name]: event.target.value,
+            [event.target.name]: event.target.value,
         
         })
+
     }
     handleSubmit = event => {
 

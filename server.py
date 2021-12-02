@@ -19,13 +19,20 @@ def index():
 @app.route('/users', methods=['POST'])
 def create_user():
     mysql = connectToMySQL("c_r_friends")
-    query = "INSERT INTO friends (first_name, last_name, occupation) VALUES (%(first_name)s, %(last_name)s, %(occupation)s);"
+    
     data = request.get_json()
+    first_name = data['user']['first_name']
+    last_name = data['user']['last_name']
+    occupation = data['user']['occupation']
 
-    print(data)
+    query = "INSERT INTO friends (first_name, last_name, occupation) VALUES('%s', '%s', '%s');" % (first_name, last_name, occupation)
+
+    
+
+    # print(data)
     new_friend_id = mysql.query_db(query, data)
     # print("this is the friend id: ")
-    return redirect('/')
+    return redirect('/users')
 
 
 if __name__ == "__main__":
