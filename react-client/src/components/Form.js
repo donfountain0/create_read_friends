@@ -1,44 +1,67 @@
-import {useState, useEffect} from "react";
-import { set } from "react-hook-form";
+import React from "react";
+import axios from 'axios';
 
 
-const Form = () => {  
-    const [first_name, setFirstName] = useState('');
-    const [last_name, setLastName] = useState('');
-    const [occupation, setOccupation] = useState('');
+export default class Form extends React.Component {  
+    // const [first_name, setFirstName] = useState('');
+    // const [last_name, setLastName] = useState('');
+    // const [occupation, setOccupation] = useState('');
 
-    const handleSubmit = (e) => {
+    state = {       
+        first_name: '',
+        last_name: '',
+        occupation: ''
+    }
 
-        fetch('/users', {
-            method: 'POST',
-            body: JSON.stringify({
-
-            })
+    handleChange = event => {
+        this.setState({
+            first_name: event.target.value,
+            last_name: event.target.value,
+            occupation: event.target.value
+        
         })
+    }
+    handleSubmit = event => {
 
-        e.preventDefault();
-        const blog = {first_name, last_name, occupation};
+        // fetch('/users', {
+        //     method: 'POST',
+        //     body: JSON.stringify({
+
+        //     })
+        // })
+
+        event.preventDefault();
+        const user = {
+            first_name: this.state.first_name, 
+            last_name: this.state.last_name,
+            occupation: this.state.occupation
+        };
         
-        console.log(blog)
+        console.log(user)
 
 
-        
+        axios
+            .post("http://localhost:3000/users", {user})
+            .then(res=>{
+                console.log(res);
+                console.log(res.data)
+            })
 
     }
 
 
-    return (
-        <form action='/users' onSubmit={handleSubmit} methods="POST">
-            <label>First Name</label>
-            <input type='text' value={first_name} onChange={(e) => setFirstName(e.target.value)}/><br/>
-            <label>Last Name: </label>
-            <input type='text' value={last_name} onChange={(e) => setLastName(e.target.value)}/><br/>
-            <label>Occupation: </label>
-            <input type='text' value={occupation} onChange={(e) => setOccupation(e.target.value)}/><br/>
-            <input type='submit' value='create friend'/>
-        </form>
-    );
-};
+    render(){
 
-
-export default Form;
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <label>First Name</label>
+                <input type='text' name="first_name" onChange={this.handleChange}/><br/>
+                <label>Last Name: </label>
+                <input type='text' name="last_name" onChange={this.handleChange}/><br/>
+                <label>Occupation: </label>
+                <input type='text' name="occupation" onChange={this.handleChange}/><br/>
+                <button type='submit'>Submit</button>
+            </form>
+        );
+    };
+}
