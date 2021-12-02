@@ -1,15 +1,14 @@
-from flask import Flask, render_template, request, redirect, jsonify, json
+from flask import Flask, render_template, request, redirect, jsonify, json, url_for
 from mysqlconnection import connectToMySQL
 from flask_cors import CORS,  cross_origin
 
 app = Flask(__name__)
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
+CORS(app, support_credentials=True)
 mysql = connectToMySQL('c_r_friends')
 # print("all the users", mysql.query_db("SELECT * FROM users;"))
 
-@app.route("/members")
-@cross_origin()
+@app.route("/members", methods = ['GET'])
+@cross_origin(supports_credentials=True)
 def index():
     mysql = connectToMySQL("c_r_friends")
     all_friends = mysql.query_db("SELECT * FROM friends")
@@ -32,7 +31,7 @@ def create_user():
     # print(data)
     new_friend_id = mysql.query_db(query, data)
     # print("this is the friend id: ")
-    return redirect('/users')
+    return redirect('/')
 
 
 if __name__ == "__main__":
